@@ -276,6 +276,21 @@
                 </div>
             </div>
 
+            <!-- PRODUCT 4 - Новый товар Shark -->
+            <div class="product-card" data-category="home" data-title="shark vacuum cleaner home kitchen">
+                <div class="product-image-container">
+                    <img src="https://i.postimg.cc/RVbtW9CP/photo-2025-09-20-16-49-31.jpg" alt="Shark Vacuum Cleaner" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Shark Vacuum Cleaner | Powerful Suction for Home & Kitchen</div>
+                    <div class="product-category">Home & Kitchen</div>
+                    <div class="price-container">
+                        <span class="price-badge">POPULAR</span>
+                    </div>
+                    <a href="https://amzn.to/4njmJFU" class="buy-button" target="_blank">View on Amazon</a>
+                </div>
+            </div>
+
             <!-- МЕСТО ДЛЯ ТВОИХ ТОВАРОВ -->
             <!-- ВСТАВЬТЕ СВОИ ТОВАРЫ ЗДЕСЬ ПО ОБРАЗЦУ -->
 
