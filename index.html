@@ -44,6 +44,35 @@
             margin: 0 auto;
         }
 
+        /* Стили для фильтров категорий */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #ff9900;
+        }
+
+        .filter-btn.active {
+            background: #ff9900;
+            color: white;
+            border-color: #ff9900;
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -83,8 +112,6 @@
             font-weight: bold;
             margin-bottom: 10px;
             font-size: 16px;
-            /* Убрана фиксированная высота */
-            min-height: auto;
             line-height: 1.4;
         }
 
@@ -141,7 +168,17 @@
             }
             
             .product-title {
-                font-size: 15px; /* Чуть меньший размер шрифта на мобильных */
+                font-size: 15px;
+            }
+            
+            .category-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 200px;
+                text-align: center;
             }
         }
     </style>
@@ -153,9 +190,17 @@
             <p class="tagline">Curated home essentials that simplify your life and bring joy to your space</p>
         </header>
         
+        <!-- Фильтры по категориям -->
+        <div class="category-filters">
+            <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+            <button class="filter-btn" onclick="filterProducts('home')">Home & Kitchen</button>
+            <button class="filter-btn" onclick="filterProducts('beauty')">Beauty & Care</button>
+            <button class="filter-btn" onclick="filterProducts('tech')">Tech & Gadgets</button>
+        </div>
+        
         <div class="product-grid">
             <!-- PRODUCT 1 - CeraVe -->
-            <div class="product-card">
+            <div class="product-card" data-category="beauty">
                 <div class="product-image-container">
                     <img src="https://i.postimg.cc/LhKGqD5n/photo-2025-08-30-14-03-37.jpg" alt="CeraVe Eye Repair Cream" class="product-image">
                 </div>
@@ -170,7 +215,7 @@
             </div>
 
             <!-- PRODUCT 2 - iRobot Roomba -->
-            <div class="product-card">
+            <div class="product-card" data-category="home">
                 <div class="product-image-container">
                     <img src="https://i.postimg.cc/L6BCC6ZW/photo-2025-09-18-16-34-11.jpg" alt="iRobot Roomba Robot Vacuum" class="product-image">
                 </div>
@@ -189,5 +234,30 @@
             As an Amazon Associate I earn from qualifying purchases.
         </div>
     </div>
+
+    <script>
+        // Простая функция для фильтрации товаров по категориям
+        function filterProducts(category) {
+            const products = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Убираем активный класс у всех кнопок и добавляем текущей
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            // Показываем/скрываем товары в зависимости от категории
+            products.forEach(product => {
+                if (category === 'all') {
+                    product.style.display = 'block';
+                } else {
+                    if (product.getAttribute('data-category') === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
