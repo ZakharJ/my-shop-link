@@ -44,7 +44,27 @@
             margin: 0 auto;
         }
 
-        /* Стили для фильтров категорий */
+        /* Стили для поиска и фильтров */
+        .search-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-box {
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #ff9900;
+        }
+
         .category-filters {
             display: flex;
             justify-content: center;
@@ -158,6 +178,14 @@
             padding: 20px;
         }
 
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .product-grid {
                 grid-template-columns: 1fr;
@@ -190,17 +218,22 @@
             <p class="tagline">Curated home essentials that simplify your life and bring joy to your space</p>
         </header>
         
-        <!-- Фильтры по категориям -->
-        <div class="category-filters">
-            <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
-            <button class="filter-btn" onclick="filterProducts('home')">Home & Kitchen</button>
-            <button class="filter-btn" onclick="filterProducts('beauty')">Beauty & Care</button>
-            <button class="filter-btn" onclick="filterProducts('tech')">Tech & Gadgets</button>
+        <!-- Поиск и фильтры -->
+        <div class="search-section">
+            <input type="text" class="search-box" placeholder="Search products..." onkeyup="searchProducts()">
+            
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                <button class="filter-btn" onclick="filterProducts('home')">Home & Kitchen</button>
+                <button class="filter-btn" onclick="filterProducts('beauty')">Beauty & Care</button>
+                <button class="filter-btn" onclick="filterProducts('tech')">Electronics</button>
+                <button class="filter-btn" onclick="filterProducts('vacuums')">Robot Vacuums</button>
+            </div>
         </div>
         
         <div class="product-grid">
             <!-- PRODUCT 1 - CeraVe -->
-            <div class="product-card" data-category="beauty">
+            <div class="product-card" data-category="beauty" data-title="cerave eye repair cream under eye treatment dark circles">
                 <div class="product-image-container">
                     <img src="https://i.postimg.cc/LhKGqD5n/photo-2025-08-30-14-03-37.jpg" alt="CeraVe Eye Repair Cream" class="product-image">
                 </div>
@@ -215,19 +248,27 @@
             </div>
 
             <!-- PRODUCT 2 - iRobot Roomba -->
-            <div class="product-card" data-category="home">
+            <div class="product-card" data-category="home tech vacuums" data-title="irobot roomba robot vacuum smart mapping self emptying">
                 <div class="product-image-container">
                     <img src="https://i.postimg.cc/L6BCC6ZW/photo-2025-09-18-16-34-11.jpg" alt="iRobot Roomba Robot Vacuum" class="product-image">
                 </div>
                 <div class="product-info">
                     <div class="product-title">iRobot Roomba Robot Vacuum | Smart Mapping, Self-Emptying</div>
-                    <div class="product-category">Home & Kitchen</div>
+                    <div class="product-category">Home & Kitchen • Electronics</div>
                     <div class="price-container">
                         <span class="price-badge">TOP RATED</span>
                     </div>
                     <a href="https://amzn.to/46wvFR2" class="buy-button" target="_blank">View on Amazon</a>
                 </div>
             </div>
+
+            <!-- МЕСТО ДЛЯ ТВОИХ 5 РОБОТОВ-ПЫЛЕСОСОВ -->
+            <!-- ВСТАВЬТЕ СВОИ ТОВАРЫ ЗДЕСЬ ПО ОБРАЗЦУ -->
+
+        </div>
+
+        <div class="no-results" id="noResults">
+            No products found matching your search.
         </div>
         
         <div class="disclaimer">
@@ -236,27 +277,48 @@
     </div>
 
     <script>
-        // Простая функция для фильтрации товаров по категориям
+        // Текущий активный фильтр
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Функция фильтрации товаров
         function filterProducts(category) {
-            const products = document.querySelectorAll('.product-card');
-            const buttons = document.querySelectorAll('.filter-btn');
+            currentFilter = category;
+            applyFilters();
             
-            // Убираем активный класс у всех кнопок и добавляем текущей
+            // Обновляем активную кнопку
+            const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            
-            // Показываем/скрываем товары в зависимости от категории
+        }
+
+        // Функция поиска товаров
+        function searchProducts() {
+            currentSearch = document.querySelector('.search-box').value.toLowerCase();
+            applyFilters();
+        }
+
+        // Применяем оба фильтра (по категории и поиску)
+        function applyFilters() {
+            const products = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
             products.forEach(product => {
-                if (category === 'all') {
+                const categoryMatch = currentFilter === 'all' || 
+                                    product.getAttribute('data-category').includes(currentFilter);
+                const searchMatch = product.getAttribute('data-title').includes(currentSearch) || 
+                                  currentSearch === '';
+
+                if (categoryMatch && searchMatch) {
                     product.style.display = 'block';
+                    visibleCount++;
                 } else {
-                    if (product.getAttribute('data-category') === category) {
-                        product.style.display = 'block';
-                    } else {
-                        product.style.display = 'none';
-                    }
+                    product.style.display = 'none';
                 }
             });
+
+            // Показываем/скрываем сообщение "нет результатов"
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
         }
     </script>
 </body>
