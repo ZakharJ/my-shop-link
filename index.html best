@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure Home | Amazon Must-Haves</title>
+    <meta name="description" content="Curated selection of the best home, organization, and personal care products on Amazon. Transform your space with these affordable finds.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            color: #333333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #666666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Стили для поиска и фильтров */
+        .search-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-box {
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #ff9900;
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #ff9900;
+        }
+
+        .filter-btn.active {
+            background: #ff9900;
+            color: white;
+            border-color: #ff9900;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #eeeeee;
+        }
+
+        .product-image-container {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .product-category {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .price-badge {
+            background: #ff9900;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .buy-button {
+            background-color: #000000;
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            display: block;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .buy-button:hover {
+            background-color: #ff9900;
+        }
+
+        .disclaimer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 12px;
+            color: #666666;
+            padding: 20px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 15px;
+            }
+            
+            .product-title {
+                font-size: 15px;
+            }
+            
+            .category-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Pure Home</div>
+            <p class="tagline">Curated home essentials that simplify your life and bring joy to your space</p>
+        </header>
+        
+        <!-- Поиск и фильтры -->
+        <div class="search-section">
+            <input type="text" class="search-box" placeholder="Search products..." onkeyup="searchProducts()">
+            
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                <button class="filter-btn" onclick="filterProducts('home')">Home & Kitchen</button>
+                <button class="filter-btn" onclick="filterProducts('beauty')">Beauty & Care</button>
+                <button class="filter-btn" onclick="filterProducts('tech')">Electronics</button>
+            </div>
+        </div>
+        
+        <div class="product-grid">
+            <!-- PRODUCT 1 - CeraVe -->
+            <div class="product-card" data-category="beauty" data-title="cerave eye repair cream under eye treatment dark circles">
+                <div class="product-image-container">
+                    <img src="https://i.postimg.cc/LhKGqD5n/photo-2025-08-30-14-03-37.jpg" alt="CeraVe Eye Repair Cream" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">CeraVe Eye Repair Cream | Under Eye Treatment for Dark Circles</div>
+                    <div class="product-category">Beauty & Personal Care</div>
+                    <a href="https://amzn.to/4n3PiHf" class="buy-button" target="_blank">View on Amazon</a>
+                </div>
+            </div>
+
+            <!-- PRODUCT 2 - iRobot Roomba -->
+            <div class="product-card" data-category="home tech" data-title="irobot roomba robot vacuum smart mapping self emptying">
+                <div class="product-image-container">
+                    <img src="https://i.postimg.cc/L6BCC6ZW/photo-2025-09-18-16-34-11.jpg" alt="iRobot Roomba Robot Vacuum" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">iRobot Roomba Robot Vacuum | Smart Mapping, Self-Emptying</div>
+                    <div class="product-category">Home & Kitchen • Electronics</div>
+                    <a href="https://amzn.to/46wvFR2" class="buy-button" target="_blank">View on Amazon</a>
+                </div>
+            </div>
+
+            <!-- PRODUCT 3 - Shark Robot Vacuum (ЕДИНСТВЕННЫЙ) -->
+            <div class="product-card" data-category="home tech" data-title="shark av2501ae ai robot vacuum with xl hepa self empty base bagless 60 day capacity lidar navigation">
+                <div class="product-image-container">
+                    <img src="https://m.media-amazon.com/images/I/71I8tGSIneL._AC_SL1500_.jpg" alt="Shark AV2501AE AI Robot Vacuum" class="product-image">
+                </div>
+                <div class="product-info">
+                    <div class="product-title">Shark AV2501AE AI Robot Vacuum with XL HEPA Self-Empty Base, Bagless, 60-Day Capacity</div>
+                    <div class="product-category">Home & Kitchen • Electronics</div>
+                    <div class="price-container">
+                        <span class="price-badge">BESTSELLER</span>
+                    </div>
+                    <a href="https://amzn.to/4njmJFU" class="buy-button" target="_blank">View on Amazon</a>
+                </div>
+            </div>
+
+            <!-- МЕСТО ДЛЯ ТВОИХ ТОВАРОВ -->
+            <!-- ВСТАВЬТЕ СВОИ ТОВАРЫ ЗДЕСЬ ПО ОБРАЗЦУ -->
+
+        </div>
+
+        <div class="no-results" id="noResults">
+            No products found matching your search.
+        </div>
+        
+        <div class="disclaimer">
+            As an Amazon Associate I earn from qualifying purchases.
+        </div>
+    </div>
+
+    <script>
+        // Текущий активный фильтр
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Функция фильтрации товаров
+        function filterProducts(category) {
+            currentFilter = category;
+            applyFilters();
+            
+            // Обновляем активную кнопку
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        // Функция поиска товаров
+        function searchProducts() {
+            currentSearch = document.querySelector('.search-box').value.toLowerCase();
+            applyFilters();
+        }
+
+        // Применяем оба фильтра (по категории и поиску)
+        function applyFilters() {
+            const products = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            products.forEach(product => {
+                const categoryMatch = currentFilter === 'all' || 
+                                    product.getAttribute('data-category').includes(currentFilter);
+                const searchMatch = product.getAttribute('data-title').includes(currentSearch) || 
+                                  currentSearch === '';
+
+                if (categoryMatch && searchMatch) {
+                    product.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            // Показываем/скрываем сообщение "нет результатов"
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
